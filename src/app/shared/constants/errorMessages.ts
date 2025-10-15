@@ -1,0 +1,1 @@
+export const LOGIN_FAILED_ERROR_MESSAGE = 'Nie udało się zalogować. Spróbuj ponownie.';
