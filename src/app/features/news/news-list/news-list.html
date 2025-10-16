@@ -1,0 +1,26 @@
+<app-header></app-header>
+
+<main>
+  <h2 id="news-heading">News</h2>
+
+  @if (isLoading()) {
+  <div role="status" aria-live="polite">Ładowanie...</div>
+  } @else if (errorMessage()) {
+  <div role="alert" style="color: red">{{ errorMessage() }}</div>
+  } @else {
+  <ul aria-labelledby="news-heading">
+    @for (item of news(); track item.id; let index = $index, even = $even) {
+    <li>
+      <article>
+        <h3>{{ item.title }}</h3>
+        <p [innerHTML]="item.content"></p>
+        <small>Data: {{ item.date | date : 'short' }}</small>
+      </article>
+      <hr />
+    </li>
+    } @empty {
+    <li aria-hidden="true">Brak wiadomości.</li>
+    }
+  </ul>
+  }
+</main>
