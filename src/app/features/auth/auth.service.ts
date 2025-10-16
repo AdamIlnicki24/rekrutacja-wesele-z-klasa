@@ -72,6 +72,8 @@ export class AuthService {
       device: getBrowserName(),
     };
 
+    console.log('Browser:', payload.device);
+
     return this.http.post<LoginResponse>(LOGIN_API_ENDPOINT, payload).pipe(
       tap((response) => {
         this.token.set(response.token);
