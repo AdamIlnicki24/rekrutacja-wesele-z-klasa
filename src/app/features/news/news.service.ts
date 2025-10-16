@@ -11,6 +11,7 @@ export class NewsService {
   constructor(private http: HttpClient) {}
 
   getNews(): Observable<News[]> {
+    console.log('Pobrano newsy');
     return this.http.get<News[]>(NEWS_API_ENDPOINT);
   }
 }

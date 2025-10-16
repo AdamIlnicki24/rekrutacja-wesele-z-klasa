@@ -48,9 +48,10 @@ export class Login implements OnInit {
         this.isSubmitting = false;
         this.router.navigate([NEWS_URL]);
       },
-      error: () => {
+      error: (error: Error) => {
         this.isSubmitting = false;
         this.errorMessage = LOGIN_FAILED_ERROR_MESSAGE;
+        console.error('Error:', error);
       },
     });
   }
