@@ -47,7 +47,7 @@ export class AuthService {
     const payload: LoginRequest = {
       email,
       password,
-      agent: getBrowserName(),
+      device: getBrowserName(),
     };
 
     return this.http.post<LoginResponse>(LOGIN_API_ENDPOINT, payload).pipe(

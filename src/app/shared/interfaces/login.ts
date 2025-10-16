@@ -1,7 +1,7 @@
 export interface LoginRequest {
   email: string;
   password: string;
-  agent: string;
+  device: string;
 }
 
 export interface LoginResponse {
