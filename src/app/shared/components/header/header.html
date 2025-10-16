@@ -1,11 +1,11 @@
 <header class="app-header" role="navigation" aria-label="Nagłówek aplikacji">
   @if (auth.user()) {
-  <div>
-    <span>Witaj, {{ auth.user()?.username }}</span>
-  </div>
+  <div class="container">
+    <div class="welcome">
+      <span>Witaj, {{ auth.user()?.username }}</span>
+    </div>
 
-  <div>
-    <button (click)="onLogout()" aria-label="Wyloguj">Wyloguj</button>
+    <button (click)="onLogout()" aria-label="Wyloguj" class="button">Wyloguj</button>
   </div>
   }
 </header>
