@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 100px;
+  background-color: var(--headerColor);
+  padding-block: 20px;
+}
+
+.welcome {
+  font-size: 2rem;
+}
+
+.button {
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
+  padding: 10px 30px 10px 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 16px;
+}
+
+.button:hover {
+  cursor: pointer;
+}

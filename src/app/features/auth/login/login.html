@@ -1,64 +1,72 @@
-<h2>Logowanie</h2>
+<main class="container">
+  <div class="content">
+    <h2 class="heading">Zaloguj się</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="">
+      <div class="form">
+        <div class="input">
+          <label for="email">E-mail:</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+            [attr.aria-describedby]="
+              form.get('email')?.invalid && form.get('email')?.touched ? 'email-error' : null
+            "
+          />
 
-<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-  <div>
-    <label for="email">Email</label>
-    <input
-      id="email"
-      type="email"
-      formControlName="email"
-      autocomplete="email"
-      [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
-      [attr.aria-describedby]="form.get('email')?.invalid && form.get('email')?.touched ? 'email-error' : null"
-    />
+          @if (form.get('email')?.touched && form.get('email')?.invalid) {
+          <div id="email-error" role="alert">
+            @if (form.get('email')?.errors?.['required']) {
+            <small>E-mail jest wymagany.</small>
+            } @else if (form.get('email')?.errors?.['email']) {
+            <small>Nieprawidłowy format adresu e-mail.</small>
+            }
+          </div>
+          }
+        </div>
+        <div class="input">
+          <label for="password">Hasło:</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+            [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+            [attr.aria-describedby]="
+              form.get('password')?.invalid && form.get('password')?.touched
+                ? 'password-error'
+                : null
+            "
+          />
 
-    @if (form.get('email')?.touched && form.get('email')?.invalid) {
-      <div id="email-error" role="alert">
-        @if (form.get('email')?.errors?.['required']) {
-          <small>E-mail jest wymagany.</small>
-        } @else if (form.get('email')?.errors?.['email']) {
-          <small>Nieprawidłowy format adresu e-mail.</small>
+          @if (form.get('password')?.touched && form.get('password')?.invalid) {
+          <div id="password-error" role="alert">
+            @if (form.get('password')?.errors?.['required']) {
+            <small>Hasło jest wymagane.</small>
+            } @else if (form.get('password')?.errors?.['minlength']) {
+            <small>Hasło jest za krótkie.</small>
+            }
+          </div>
+          }
+        </div>
+
+        @if (errorMessage) {
+        <div role="alert">
+          <small style="color: red">{{ errorMessage }}</small>
+        </div>
         }
       </div>
-    }
-  </div>
+      <button type="submit" [disabled]="isSubmitting" aria-live="polite" class="button">
 
-  <div>
-    <label for="password">Hasło</label>
-    <input
-      id="password"
-      type="password"
-      formControlName="password"
-      autocomplete="current-password"
-      [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
-      [attr.aria-describedby]="form.get('password')?.invalid && form.get('password')?.touched ? 'password-error' : null"
-    />
-
-    @if (form.get('password')?.touched && form.get('password')?.invalid) {
-      <div id="password-error" role="alert">
-        @if (form.get('password')?.errors?.['required']) {
-          <small>Hasło jest wymagane.</small>
-        } @else if (form.get('password')?.errors?.['minlength']) {
-          <small>Hasło jest za krótkie.</small>
-        }
-      </div>
-    }
-  </div>
-
-  <div>
-    <button type="submit" [disabled]="isSubmitting" aria-live="polite">
-      @if (isSubmitting) {
+        @if (isSubmitting) {
         <span aria-hidden="true">⏳</span>
-        <span>Wysyłanie…</span>
-      } @else {
+        <span>Poczekaj…</span>
+        } @else {
         <span>Zaloguj</span>
-      }
-    </button>
+        }
+      </button>
+    </form>
   </div>
-
-  @if (errorMessage) {
-    <div role="alert">
-      <small style="color: red">{{ errorMessage }}</small>
-    </div>
-  }
-</form>
+</main>

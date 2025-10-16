@@ -1,12 +1,12 @@
 <app-header></app-header>
 
-<main>
-  <h2 id="news-heading">News</h2>
+<main class="container">
+  <h2 id="news-heading">Newsy:</h2>
 
   @if (isLoading()) {
   <div role="status" aria-live="polite">Ładowanie...</div>
   } @else if (errorMessage()) {
-  <div role="alert" style="color: red">{{ errorMessage() }}</div>
+  <div role="alert" class="error-message">{{ errorMessage() }}</div>
   } @else {
   <ul aria-labelledby="news-heading">
     @for (item of news(); track item.id; let index = $index, even = $even) {

@@ -13,7 +13,7 @@ export function getBrowserName(): string {
     return FIREFOX_BROWSER;
   }
 
-  if (agent.includes(EDGE_BROWSER)) {
+  if (agent.includes(EDGE_BROWSER) || agent.includes('Edg')) {
     return EDGE_BROWSER;
   }
 
@@ -21,7 +21,7 @@ export function getBrowserName(): string {
     return CHROME_BROWSER;
   }
 
-  if (agent.includes(SAFARI_BROWSER) && !agent.includes(CHROME_BROWSER)) {
+  if (agent.includes(SAFARI_BROWSER) && !agent.includes(CHROME_BROWSER) && !agent.includes('OPR')) {
     return SAFARI_BROWSER;
   }
 

@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primaryColor: #9f1e7052;
+  --secondaryColor: #f9f9f9;
+  --borderColor: #ccc;
+  --alertColor: #b00020;
+  --headerColor: #ddd;
+  --defaultGray: #666;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--primaryColor);
+}

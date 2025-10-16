@@ -8,6 +8,9 @@ import { LOGIN_URL } from '../../shared/constants/urls';
 import { LoginRequest, LoginResponse } from '../../shared/interfaces/login';
 import { getBrowserName } from '../../shared/utils/getBrowserName';
 
+const TOKEN_STORAGE_KEY = 'token';
+const USER_STORAGE_KEY = 'user';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,32 +18,44 @@ export class AuthService {
   token = signal<string | null>(null);
   user = signal<User | null>(null);
 
+  constructor(private http: HttpClient, private router: Router) {
+    const storedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
+    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+
+    if (storedToken) {
+      this.token.set(storedToken);
+    }
+
+    if (storedUser) {
+      try {
+        this.user.set(JSON.parse(storedUser) as User);
+      } catch {
+        localStorage.removeItem(USER_STORAGE_KEY);
+      }
+    }
+
+    if (storedToken && !this.user()) {
+      this.getUser().subscribe({
+        next: () => {},
+      });
+    }
+  }
+
   getUser(): Observable<User> {
-    return this.http
-      .get<User>(LOGIN_API_ENDPOINT)
-      .pipe(tap((currentUser) => this.user.set(currentUser)));
+    return this.http.get<User>(LOGIN_API_ENDPOINT).pipe(
+      tap((currentUser) => {
+        this.user.set(currentUser);
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentUser));
+      })
+    );
   }
 
   private clearAuth(): void {
     this.token.set(null);
     this.user.set(null);
-    localStorage.removeItem('token');
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(USER_STORAGE_KEY);
     this.router.navigate([LOGIN_URL]);
-  }
-
-  constructor(private http: HttpClient, private router: Router) {
-    const storedToken = localStorage.getItem('token');
-
-    if (storedToken) {
-      this.token.set(storedToken);
-
-      this.getUser().subscribe({
-        next: () => {},
-        error: () => {
-          this.clearAuth();
-        },
-      });
-    }
   }
 
   login(email: string, password: string): Observable<User> {
@@ -53,7 +68,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(LOGIN_API_ENDPOINT, payload).pipe(
       tap((response) => {
         this.token.set(response.token);
-        localStorage.setItem('token', response.token);
+        localStorage.setItem(TOKEN_STORAGE_KEY, response.token);
       }),
       switchMap(() => this.getUser())
     );
@@ -68,5 +83,12 @@ export class AuthService {
         this.clearAuth();
       },
     });
+  }
+
+  clearAuthSilent(): void {
+    this.token.set(null);
+    this.user.set(null);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(USER_STORAGE_KEY);
   }
 }
