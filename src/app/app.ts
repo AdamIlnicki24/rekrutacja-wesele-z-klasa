@@ -6,9 +6,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'],
   standalone: true,
 })
-export class App {
-  protected readonly title = signal('Test');
-}
+export class App {}
