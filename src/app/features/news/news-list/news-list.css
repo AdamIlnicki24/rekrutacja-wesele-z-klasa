@@ -1,44 +1,45 @@
-main.container {
+.container {
   padding: 40px;
 }
 
-main.container #news-heading {
+#news-heading {
   color: black;
+  text-decoration: underline;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-main.container ul[aria-labelledby='news-heading'] {
+ul[aria-labelledby='news-heading'] {
   list-style: none;
   padding-left: 40px;
   margin: 0;
 }
 
-main.container article {
+article {
   padding: 0.5rem 0;
   color: black;
 }
 
-main.container h3 {
+h3 {
   font-size: 1rem;
   margin: 0 0 0.25rem 0;
 }
 
-main.container p {
+p {
   margin: 0 0 0.5rem 0;
   line-height: 1.5;
   color: black;
   padding-left: 25px;
 }
 
-main.container small {
+small {
   color: var(--defaultGray);
   font-size: 0.85rem;
   display: block;
   margin-top: 0.25rem;
 }
 
-main.container hr {
+hr {
   border: 0;
   height: 1px;
   background: black;
