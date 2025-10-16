@@ -37,9 +37,6 @@ export class AuthService {
     if (storedToken && !this.user()) {
       this.getUser().subscribe({
         next: () => {},
-        error: (err) => {
-          console.warn('Nie udało się pobrać profilu w tle', err);
-        },
       });
     }
   }
@@ -48,11 +45,7 @@ export class AuthService {
     return this.http.get<User>(LOGIN_API_ENDPOINT).pipe(
       tap((currentUser) => {
         this.user.set(currentUser);
-        try {
-          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentUser));
-        } catch (e) {
-          console.warn('Nie udało się zapisać usera do localStorage', e);
-        }
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentUser));
       })
     );
   }
@@ -71,8 +64,6 @@ export class AuthService {
       password,
       device: getBrowserName(),
     };
-
-    console.log('Browser:', payload.device);
 
     return this.http.post<LoginResponse>(LOGIN_API_ENDPOINT, payload).pipe(
       tap((response) => {

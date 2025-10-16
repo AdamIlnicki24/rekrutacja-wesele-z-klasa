@@ -27,16 +27,13 @@ export class NewsList implements OnInit {
   loadNews(): void {
     this.isLoading.set(true);
     this.errorMessage.set(null);
-    console.log('Ładowanie newsów...');
 
     this.newsService
       .getNews()
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: (list) => {
-          console.log('Newsy załadowane:', list);
           if (!Array.isArray(list)) {
-            console.error('Oczekiwano tablicy newsów, otrzymano:', list);
             this.errorMessage.set(FAILED_TO_DOWNLOAD_NEWS_ERROR_MESSAGE);
             return;
           }
@@ -47,12 +44,10 @@ export class NewsList implements OnInit {
             });
             this.news.set(sorted);
           } catch (err) {
-            console.error('Błąd podczas sortowania/parsowania dat:', err);
             this.errorMessage.set(FAILED_TO_DOWNLOAD_NEWS_ERROR_MESSAGE);
           }
         },
         error: (err) => {
-          console.error('Failed to load news', err);
           this.errorMessage.set(FAILED_TO_DOWNLOAD_NEWS_ERROR_MESSAGE);
         },
       });
