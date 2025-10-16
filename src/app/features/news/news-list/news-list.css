@@ -58,3 +58,7 @@ main.container [role='alert'] {
   background: var(--defaultGray);
   color: var(--alertColor);
 }
+
+.error-message {
+  color: var(--alertColor);
+}
