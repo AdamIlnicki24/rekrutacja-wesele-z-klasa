@@ -47,7 +47,7 @@ export class NewsList implements OnInit {
             this.errorMessage.set(FAILED_TO_DOWNLOAD_NEWS_ERROR_MESSAGE);
           }
         },
-        error: (err) => {
+        error: () => {
           this.errorMessage.set(FAILED_TO_DOWNLOAD_NEWS_ERROR_MESSAGE);
         },
       });
