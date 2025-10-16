@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 100px;
-  background-color: #ddd;
+  background-color: var(--headerColor);
   padding-block: 20px;
 }
 
@@ -13,7 +13,7 @@
 
 .button {
   background-color: var(--primaryColor);
-  color: #f9f9f9;
+  color: var(--secondaryColor);
   padding: 10px 30px 10px 30px;
   font-size: 1.2rem;
   font-weight: 700;
