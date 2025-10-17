@@ -2,37 +2,37 @@
   padding: 40px;
 }
 
-#news-heading {
+.news-heading {
   color: black;
   text-decoration: underline;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-ul[aria-labelledby='news-heading'] {
+ul[aria-labelledby='news-list'] {
   list-style: none;
   padding-left: 40px;
   margin: 0;
 }
 
-article {
+.news-section {
   padding: 0.5rem 0;
   color: black;
 }
 
-h3 {
+.title {
   font-size: 1rem;
   margin: 0 0 0.25rem 0;
 }
 
-p {
+.content {
   margin: 0 0 0.5rem 0;
   line-height: 1.5;
   color: black;
   padding-left: 25px;
 }
 
-small {
+.date {
   color: var(--defaultGray);
   font-size: 0.85rem;
   display: block;

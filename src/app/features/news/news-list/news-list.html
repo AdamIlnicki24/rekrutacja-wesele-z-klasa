@@ -1,21 +1,21 @@
 <app-header></app-header>
 
 <main class="container">
-  <h2 id="news-heading">Newsy:</h2>
+  <h2 class="news-heading">Newsy:</h2>
 
   @if (isLoading()) {
   <div role="status" aria-live="polite">Ładowanie...</div>
   } @else if (errorMessage()) {
   <div role="alert" class="error-message">{{ errorMessage() }}</div>
   } @else {
-  <ul aria-labelledby="news-heading">
+  <ul aria-labelledby="news-list">
     @for (item of news(); track item.id; let index = $index, even = $even) {
     <li>
-      <article>
-        <h3>{{ item.title }}</h3>
-        <p [innerHTML]="item.content"></p>
-        <small>Data: {{ item.date | date : 'short' }}</small>
-      </article>
+      <section class="news-section">
+        <h3 class="title">{{ item.title }}</h3>
+        <p class="content" [innerHTML]="item.content"></p>
+        <small class="date">Data: {{ item.date | date : 'short' }}</small>
+      </section>
       <hr />
     </li>
     } @empty {
