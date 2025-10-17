@@ -1,12 +1,12 @@
 import { Injectable, signal } from '@angular/core';
-import { User } from '../../shared/interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, switchMap, tap } from 'rxjs';
-import { LOGIN_API_ENDPOINT, LOGOUT_API_ENDPOINT } from '../../shared/constants/apiEndpoints';
-import { LOGIN_URL } from '../../shared/constants/urls';
-import { LoginRequest, LoginResponse } from '../../shared/interfaces/login';
-import { getBrowserName } from '../../shared/utils/getBrowserName';
+import { LOGIN_API_ENDPOINT, LOGOUT_API_ENDPOINT } from '../shared/constants/apiEndpoints';
+import { LOGIN_URL } from '../shared/constants/urls';
+import { LoginRequest, LoginResponse } from '../shared/interfaces/login';
+import { User } from '../shared/interfaces/user';
+import { getBrowserName } from '../shared/utils/getBrowserName';
 
 const TOKEN_STORAGE_KEY = 'token';
 const USER_STORAGE_KEY = 'user';
