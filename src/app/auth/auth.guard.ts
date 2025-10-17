@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { LOGIN_URL } from '../../shared/constants/urls';
+import { LOGIN_URL } from '../shared/constants/urls';
 
 @Injectable({
   providedIn: 'root',
