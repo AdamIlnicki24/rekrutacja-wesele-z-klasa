@@ -1,7 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { LOGIN_API_ENDPOINT, LOGOUT_API_ENDPOINT } from '../shared/constants/apiEndpoints';
 import { LOGIN_URL } from '../shared/constants/urls';
 import { LoginRequest, LoginResponse } from '../shared/interfaces/login';
@@ -9,7 +10,6 @@ import { User } from '../shared/interfaces/user';
 import { getBrowserName } from '../shared/utils/getBrowserName';
 
 const TOKEN_STORAGE_KEY = 'token';
-const USER_STORAGE_KEY = 'user';
 
 @Injectable({
   providedIn: 'root',
@@ -20,42 +20,51 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     const storedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
-    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-
     if (storedToken) {
       this.token.set(storedToken);
     }
 
-    if (storedUser) {
-      try {
-        this.user.set(JSON.parse(storedUser) as User);
-      } catch {
-        localStorage.removeItem(USER_STORAGE_KEY);
+    effect(() => {
+      const current = this.token();
+      if (current) {
+        localStorage.setItem(TOKEN_STORAGE_KEY, current);
+      } else {
+        localStorage.removeItem(TOKEN_STORAGE_KEY);
       }
-    }
-
-    if (storedToken && !this.user()) {
-      this.getUser().subscribe({
-        next: () => {},
-      });
-    }
-  }
-
-  getUser(): Observable<User> {
-    return this.http.get<User>(LOGIN_API_ENDPOINT).pipe(
-      tap((currentUser) => {
-        this.user.set(currentUser);
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentUser));
-      })
-    );
+    });
   }
 
   private clearAuth(): void {
     this.token.set(null);
     this.user.set(null);
     localStorage.removeItem(TOKEN_STORAGE_KEY);
-    localStorage.removeItem(USER_STORAGE_KEY);
     this.router.navigate([LOGIN_URL]);
+  }
+
+  clearAuthSilent(): void {
+    this.token.set(null);
+    this.user.set(null);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+  }
+
+  getUser(): Observable<User> {
+    return this.http.get<User>(LOGIN_API_ENDPOINT).pipe(
+      tap((currentUser) => {
+        this.user.set(currentUser);
+      })
+    );
+  }
+
+  async initialize(): Promise<void> {
+    if (!this.token()) {
+      return;
+    }
+
+    try {
+      await firstValueFrom(this.getUser());
+    } catch (err) {
+      this.clearAuthSilent();
+    }
   }
 
   login(email: string, password: string): Observable<User> {
@@ -68,7 +77,6 @@ export class AuthService {
     return this.http.post<LoginResponse>(LOGIN_API_ENDPOINT, payload).pipe(
       tap((response) => {
         this.token.set(response.token);
-        localStorage.setItem(TOKEN_STORAGE_KEY, response.token);
       }),
       switchMap(() => this.getUser())
     );
@@ -83,12 +91,5 @@ export class AuthService {
         this.clearAuth();
       },
     });
-  }
-
-  clearAuthSilent(): void {
-    this.token.set(null);
-    this.user.set(null);
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
-    localStorage.removeItem(USER_STORAGE_KEY);
   }
 }
