@@ -8,6 +8,7 @@
           <input
             id="email"
             type="email"
+            placeholder="jan.kowalski@mail.com"
             formControlName="email"
             autocomplete="email"
             [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
@@ -31,6 +32,7 @@
           <input
             id="password"
             type="password"
+            placeholder="twoje-haslo"
             formControlName="password"
             autocomplete="current-password"
             [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
