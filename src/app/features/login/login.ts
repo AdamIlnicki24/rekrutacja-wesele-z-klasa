@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
@@ -16,8 +16,9 @@ import { NEWS_URL } from '../../shared/constants/urls';
 })
 export class Login implements OnInit {
   form!: FormGroup;
-  isSubmitting = false;
-  errorMessage: string | null = null;
+
+  isSubmitting = signal<boolean>(false);
+  errorMessage = signal<string | null>(null);
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -32,25 +33,25 @@ export class Login implements OnInit {
   }
 
   submit(): void {
-    this.errorMessage = null;
+    this.errorMessage.set(null);
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
 
     const { email, password } = this.form.value;
 
     this.auth.login(email, password).subscribe({
       next: () => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         this.router.navigate([NEWS_URL]);
       },
       error: () => {
-        this.isSubmitting = false;
-        this.errorMessage = LOGIN_FAILED_ERROR_MESSAGE;
+        this.isSubmitting.set(false);
+        this.errorMessage.set(LOGIN_FAILED_ERROR_MESSAGE);
       },
     });
   }

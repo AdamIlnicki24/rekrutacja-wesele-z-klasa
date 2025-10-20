@@ -52,15 +52,14 @@
           }
         </div>
 
-        @if (errorMessage) {
+        @if (errorMessage()) {
         <div role="alert">
-          <small style="color: red">{{ errorMessage }}</small>
+          <small style="color: red">{{ errorMessage() }}</small>
         </div>
         }
       </div>
-      <button type="submit" [disabled]="isSubmitting" aria-live="polite" class="button">
-
-        @if (isSubmitting) {
+      <button type="submit" [disabled]="isSubmitting()" aria-live="polite" class="button">
+        @if (isSubmitting()) {
         <span aria-hidden="true">⏳</span>
         <span>Poczekaj…</span>
         } @else {
