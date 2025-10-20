@@ -1,10 +1,10 @@
 <app-header></app-header>
 
 <main class="container">
-  <h2 class="news-heading">Newsy:</h2>
+  <h2 class="news-heading" id="news-list">Newsy:</h2>
 
   @if (isLoading()) {
-  <div role="status" aria-live="polite">Ładowanie...</div>
+  <div role="status">Ładowanie...</div>
   } @else if (errorMessage()) {
   <div role="alert" class="error-message">{{ errorMessage() }}</div>
   } @else {
@@ -19,7 +19,7 @@
       <hr />
     </li>
     } @empty {
-    <li aria-hidden="true">Brak wiadomości.</li>
+    <li role="status">Brak wiadomości.</li>
     }
   </ul>
   }
