@@ -1,7 +1,7 @@
 <main class="container">
   <div class="content">
     <h2 class="heading">Zaloguj się</h2>
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div class="form">
         <div class="input">
           <label for="email">E-mail:</label>
@@ -60,7 +60,7 @@
         </div>
         }
       </div>
-      <button type="submit" [disabled]="isSubmitting()" aria-live="polite" class="button">
+      <button type="submit" [disabled]="isSubmitting()" class="button">
         @if (isSubmitting()) {
         <span aria-hidden="true">⏳</span>
         <span>Poczekaj…</span>
