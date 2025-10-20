@@ -5,6 +5,7 @@
   --alertColor: #b00020;
   --headerColor: #ddd;
   --defaultGray: #666;
+  --placeholderColor: #999;
 }
 
 *,
@@ -12,6 +13,7 @@
 *::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {

@@ -3,80 +3,139 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  min-height: 270px;
-  gap: 20px;
+  width: min(92vw, 560px);
   margin: auto;
-  padding: 1rem;
+  padding: 1.25rem;
   border: 2px solid var(--borderColor);
   border-radius: 8px;
   background-color: var(--secondaryColor);
-  padding: 70px 110px;
   text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 270px;
+}
+
+@media (min-width: 900px) {
+  .content {
+    padding: 70px 110px;
+    max-width: 720px;
+  }
 }
 
 .heading {
-  font-size: 2rem;
-  margin-bottom: 5px;
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  margin: 0;
+  text-align: center;
 }
 
 .form {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  row-gap: 12px;
-  column-gap: 16px;
-  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .input {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  column-gap: 12px;
+  align-items: stretch;
+  width: 100%;
 }
 
 .input label {
-  grid-column: 1;
-  justify-self: end;
-  align-self: center;
-  white-space: nowrap;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  margin: 0;
+  text-align: left;
+  white-space: normal;
+  display: block;
+  width: 100%;
 }
 
 .input input {
-  grid-column: 2;
-  width: 100%;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  padding: 10px 12px;
   box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  background: white;
+}
+
+.input input:focus {
+  outline: 3px solid color-mix(in srgb, var(--primaryColor) 40%, transparent);
+  outline-offset: 2px;
 }
 
 .input > div[role='alert'] {
-  grid-column: 2;
   justify-self: start;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .input small {
   display: block;
   font-size: 0.9rem;
   line-height: 1.2;
+  color: var(--defaultGray);
+}
+
+[role='alert'] small {
+  color: var(--alertColor);
+  font-size: 0.9rem;
+}
+
+input::placeholder {
+  color: var(--placeholderColor);
 }
 
 .button {
   background-color: var(--primaryColor);
   color: var(--secondaryColor);
-  padding: 10px 30px 10px 30px;
-  margin-top: 35px;
-  font-size: 1.2rem;
+  padding: 10px 30px;
+  margin-top: 12px;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
   font-weight: 700;
-  border-radius: 16px;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
   cursor: pointer;
 }
 
-[role='alert'] small {
-  color: var(--alertColor);
+@media (min-width: 640px) {
+  .button {
+    width: auto;
+    align-self: center;
+    padding: 12px 36px;
+  }
+}
+
+.button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+img,
+input,
+button,
+textarea,
+select {
+  max-width: 100%;
 }

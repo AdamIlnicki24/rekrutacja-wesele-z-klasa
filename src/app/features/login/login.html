@@ -1,13 +1,14 @@
 <main class="container">
   <div class="content">
     <h2 class="heading">Zaloguj się</h2>
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div class="form">
         <div class="input">
           <label for="email">E-mail:</label>
           <input
             id="email"
             type="email"
+            placeholder="jan.kowalski@mail.com"
             formControlName="email"
             autocomplete="email"
             [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
@@ -31,6 +32,7 @@
           <input
             id="password"
             type="password"
+            placeholder="twoje-haslo"
             formControlName="password"
             autocomplete="current-password"
             [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
@@ -52,15 +54,14 @@
           }
         </div>
 
-        @if (errorMessage) {
+        @if (errorMessage()) {
         <div role="alert">
-          <small style="color: red">{{ errorMessage }}</small>
+          <small>{{ errorMessage() }}</small>
         </div>
         }
       </div>
-      <button type="submit" [disabled]="isSubmitting" aria-live="polite" class="button">
-
-        @if (isSubmitting) {
+      <button type="submit" [disabled]="isSubmitting()" class="button">
+        @if (isSubmitting()) {
         <span aria-hidden="true">⏳</span>
         <span>Poczekaj…</span>
         } @else {
