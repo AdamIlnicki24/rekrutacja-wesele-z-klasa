@@ -86,10 +86,12 @@
   display: block;
   font-size: 0.9rem;
   line-height: 1.2;
+  color: var(--defaultGray);
 }
 
 [role='alert'] small {
   color: var(--alertColor);
+  font-size: 0.9rem;
 }
 
 input::placeholder {
