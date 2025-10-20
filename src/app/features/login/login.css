@@ -67,7 +67,7 @@
   padding: 10px 12px;
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   background: white;
 }
@@ -115,10 +115,16 @@ input::placeholder {
   justify-content: center;
 }
 
-.button:hover { cursor: pointer; }
+.button:hover {
+  cursor: pointer;
+}
 
 @media (min-width: 640px) {
-  .button { width: auto; align-self: center; padding: 12px 36px; }
+  .button {
+    width: auto;
+    align-self: center;
+    padding: 12px 36px;
+  }
 }
 
 .button[disabled] {
@@ -126,8 +132,10 @@ input::placeholder {
   cursor: not-allowed;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
+img,
+input,
+button,
+textarea,
+select {
+  max-width: 100%;
 }
-
-img, input, button, textarea, select { max-width: 100%; }
